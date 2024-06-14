@@ -1,4 +1,4 @@
-import { Container, Heading, Table, Thead, Tbody, Tr, Th, Td, Spinner, Alert, AlertIcon, Button, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, FormControl, FormLabel, Input, Checkbox } from "@chakra-ui/react";
+import { Container, Heading, Table, Thead, Tbody, Tr, Th, Td, Spinner, Alert, AlertIcon, Button, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, FormControl, FormLabel, Input } from "@chakra-ui/react";
 import { useEvents, useAddEvent, useUpdateEvent, useDeleteEvent } from "../integrations/supabase/index.js";
 import { useState } from "react";
 
@@ -12,17 +12,13 @@ const Events = () => {
   const [formData, setFormData] = useState({
     name: "",
     date: "",
-    venue_id: "",
-    is_starred: false,
-    private: false,
-    cancelled: false,
   });
 
   const handleInputChange = (e) => {
-    const { name, value, type, checked } = e.target;
+    const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: type === "checkbox" ? checked : value,
+      [name]: value,
     });
   };
 
@@ -35,10 +31,6 @@ const Events = () => {
     setFormData({
       name: "",
       date: "",
-      venue_id: "",
-      is_starred: false,
-      private: false,
-      cancelled: false,
     });
     setCurrentEvent(null);
     onClose();
@@ -82,10 +74,6 @@ const Events = () => {
           <Tr>
             <Th>Name</Th>
             <Th>Date</Th>
-            <Th>Venue</Th>
-            <Th>Starred</Th>
-            <Th>Private</Th>
-            <Th>Cancelled</Th>
             <Th>Created At</Th>
             <Th>Actions</Th>
           </Tr>
@@ -95,10 +83,6 @@ const Events = () => {
             <Tr key={event.id}>
               <Td>{event.name}</Td>
               <Td>{event.date}</Td>
-              <Td>{event.venue_id}</Td>
-              <Td>{event.is_starred ? "Yes" : "No"}</Td>
-              <Td>{event.private ? "Yes" : "No"}</Td>
-              <Td>{event.cancelled ? "Yes" : "No"}</Td>
               <Td>{new Date(event.created_at).toLocaleString()}</Td>
               <Td>
                 <Button size="sm" onClick={() => handleEdit(event)}>Edit</Button>
@@ -122,19 +106,6 @@ const Events = () => {
             <FormControl mt={4}>
               <FormLabel>Date</FormLabel>
               <Input type="date" name="date" value={formData.date} onChange={handleInputChange} />
-            </FormControl>
-            <FormControl mt={4}>
-              <FormLabel>Venue ID</FormLabel>
-              <Input name="venue_id" value={formData.venue_id} onChange={handleInputChange} />
-            </FormControl>
-            <FormControl mt={4}>
-              <Checkbox name="is_starred" isChecked={formData.is_starred} onChange={handleInputChange}>Starred</Checkbox>
-            </FormControl>
-            <FormControl mt={4}>
-              <Checkbox name="private" isChecked={formData.private} onChange={handleInputChange}>Private</Checkbox>
-            </FormControl>
-            <FormControl mt={4}>
-              <Checkbox name="cancelled" isChecked={formData.cancelled} onChange={handleInputChange}>Cancelled</Checkbox>
             </FormControl>
           </ModalBody>
           <ModalFooter>
