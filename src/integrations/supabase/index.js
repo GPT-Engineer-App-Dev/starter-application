@@ -14,7 +14,7 @@ export function SupabaseProvider({ children }) {
 const fromSupabase = async (query) => {
     const { data, error } = await query;
     if (error) {
-        console.error(error.message);
+        console.error(error);
         throw new Error(error.message);
     }
     return data;
@@ -40,7 +40,7 @@ table: comments
 
 */
 
-// Hooks for events table
+// Events hooks
 export const useEvents = () => useQuery({
     queryKey: ['events'],
     queryFn: () => fromSupabase(supabase.from('events').select('*')),
@@ -81,7 +81,7 @@ export const useDeleteEvent = () => {
     });
 };
 
-// Hooks for comments table
+// Comments hooks
 export const useComments = () => useQuery({
     queryKey: ['comments'],
     queryFn: () => fromSupabase(supabase.from('comments').select('*')),
