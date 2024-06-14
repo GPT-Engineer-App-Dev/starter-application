@@ -86,6 +86,7 @@ const Events = () => {
             <Th>Starred</Th>
             <Th>Private</Th>
             <Th>Cancelled</Th>
+            <Th>Created At</Th>
             <Th>Actions</Th>
           </Tr>
         </Thead>
@@ -98,6 +99,7 @@ const Events = () => {
               <Td>{event.is_starred ? "Yes" : "No"}</Td>
               <Td>{event.private ? "Yes" : "No"}</Td>
               <Td>{event.cancelled ? "Yes" : "No"}</Td>
+              <Td>{new Date(event.created_at).toLocaleString()}</Td>
               <Td>
                 <Button size="sm" onClick={() => handleEdit(event)}>Edit</Button>
                 <Button size="sm" colorScheme="red" onClick={() => handleDelete(event.id)}>Delete</Button>

@@ -36,12 +36,12 @@ table: comments
 // Hooks for events table
 export const useEvents = () => useQuery({
     queryKey: ['events'],
-    queryFn: () => fromSupabase(supabase.from('events').select('*')),
+    queryFn: () => fromSupabase(supabase.from('events').select('id, created_at, name, date, venue_id, is_starred, private, cancelled')),
 });
 
 export const useEvent = (id) => useQuery({
     queryKey: ['events', id],
-    queryFn: () => fromSupabase(supabase.from('events').select('*').eq('id', id).single()),
+    queryFn: () => fromSupabase(supabase.from('events').select('id, created_at, name, date, venue_id, is_starred, private, cancelled').eq('id', id).single()),
 });
 
 export const useAddEvent = () => {
