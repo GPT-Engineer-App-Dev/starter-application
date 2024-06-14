@@ -13,7 +13,10 @@ export function SupabaseProvider({ children }) {
 
 const fromSupabase = async (query) => {
     const { data, error } = await query;
-    if (error) throw new Error(error.message);
+    if (error) {
+        console.error(error.message);
+        throw new Error(error.message);
+    }
     return data;
 };
 
